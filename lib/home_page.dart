@@ -3,46 +3,59 @@ import 'package:provider/provider.dart';
 
 import 'counter_model.dart';
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-
-  @override
   Widget build(BuildContext context) {
-    return Consumer<CounterModel>(builder: (context,value,child)=>Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    print('full rebuild');
+    return Consumer<CounterModel>(
+        builder: (context, value, child) => Scaffold(
+            appBar: AppBar(
+              title: Text(title),
             ),
-            Text(
-              value.count.toString(),
-              style: Theme.of(context).textTheme.headlineMedium,
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    'click any to increase:',
+                  ),
+                  Text(
+                    value.count.toString(),
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/bmiCalculator');
+                    },
+                    child: const Text('BMI CALCULATOR'),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          final counter=context.read<CounterModel>();
-          counter.incrementCounter();
-        }
-        ,tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    ));
+            floatingActionButton: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                FloatingActionButton(
+                  onPressed: () {
+                    final counter = context.read<CounterModel>();
+                    counter.incrementCounter();
+                  },
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.add),
+                ), // This trailing comma makes auto-formatting nicer for build methods.
+                FloatingActionButton(
+                  onPressed: () {
+                    final counter = context.read<CounterModel>();
+                    counter.decrementCounter();
+                  },
+                  tooltip: 'decrement',
+                  child: const Icon(Icons.exposure_minus_1),
+                ), // This trailing comma makes auto-formatting nicer for build methods.
+              ],
+            )));
   }
 }

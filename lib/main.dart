@@ -1,3 +1,5 @@
+import 'package:counter_provider/bmiCalcuProv/bmi_home_page.dart';
+import 'package:counter_provider/bmiCalcuProv/providerBmi/bmi_provider_model.dart';
 import 'package:counter_provider/counter_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,9 +7,11 @@ import 'package:provider/provider.dart';
 import 'home_page.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context)=>CounterModel(),
-    child: const MyApp()),
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider<CounterModel>(create: (context) => CounterModel()),
+      ChangeNotifierProvider<BmiProvider>(create: (context) => BmiProvider()),
+    ], child: const MyApp()),
   );
 }
 
@@ -22,8 +26,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/': (context) => const MyHomePage(title: 'flutter Provider Demo App'),
+        '/bmiCalculator': (context) => const BmiHome(),
+      },
+      initialRoute: '/',
     );
   }
 }
-
