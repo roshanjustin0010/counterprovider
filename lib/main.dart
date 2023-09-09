@@ -1,10 +1,10 @@
 import 'package:counter_provider/bmiCalcuProv/bmi_home_page.dart';
 import 'package:counter_provider/bmiCalcuProv/providerBmi/bmi_provider_model.dart';
-import 'package:counter_provider/counter_model.dart';
+import 'package:counter_provider/counterProv/counter_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'home_page.dart';
+import 'counterProv/home_page.dart';
 
 void main() {
   runApp(
